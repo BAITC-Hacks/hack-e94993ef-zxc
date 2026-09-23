@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f8fb" />
+  <title>Smart Contractor — подбор подрядчиков</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Smart Contractor">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M7.5 6.5h9A2.5 2.5 0 0 1 19 9v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 5 16.5V9a2.5 2.5 0 0 1 2.5-2.5Z" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M9 6V5a3 3 0 0 1 6 0v1M8.5 12h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span>Smart Contractor</span>
+    </a>
+    <div class="availability-pill" id="profilesBadge">Загрузка…</div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Персональный подбор</span>
+        <h1>Найдите подрядчика<br><span>под ваше событие</span></h1>
+        <p>Укажите ключевые параметры — сервис отберёт подходящих специалистов и объяснит, почему каждый вариант подходит именно под ваш запрос.</p>
+      </div>
+      <div class="hero-points" aria-label="Преимущества">
+        <div class="point"><span>01</span><p>Учитываем дату и занятость</p></div>
+        <div class="point"><span>02</span><p>Проверяем бюджет и формат</p></div>
+        <div class="point"><span>03</span><p>Показываем до 3 вариантов</p></div>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <aside class="search-card">
+        <div class="card-heading">
+          <span class="step">01</span>
+          <div>
+            <h2>Параметры события</h2>
+            <p>Заполните обязательные поля и при желании добавьте пожелания.</p>
+          </div>
+        </div>
+
+        <form id="recommendForm" class="form-grid">
+          <label class="field">
+            <span>Город</span>
+            <select id="city" required></select>
+          </label>
+
+          <label class="field">
+            <span>Дата</span>
+            <input id="eventDate" type="date" required />
+          </label>
+
+          <label class="field">
+            <span>Тип мероприятия</span>
+            <select id="eventFormat" required></select>
+          </label>
+
+          <label class="field">
+            <span>Категория</span>
+            <select id="category" required></select>
+          </label>
+
+          <label class="field">
+            <span>Бюджет, ₸</span>
+            <input id="budget" type="number" min="1" value="1000000" required />
+          </label>
+
+          <label class="field">
+            <span>Длительность <small>необязательно</small></span>
+            <div class="input-suffix">
+              <input id="duration" type="number" min="1" max="24" step="0.5" placeholder="6" />
+              <span>ч</span>
+            </div>
+          </label>
+
+          <label class="field">
+            <span>Язык <small>необязательно</small></span>
+            <select id="language"><option value="">Не важно</option></select>
+          </label>
+
+          <label class="field field-wide">
+            <span>Пожелания <small>необязательно</small></span>
+            <textarea id="preferences" rows="3" maxlength="500" placeholder="Например: современная подача, спокойный стиль, живые эмоции"></textarea>
+          </label>
+
+          <button type="submit" class="primary" id="submitButton">
+            <span>Найти варианты</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <span id="requestState" class="request-state" aria-live="polite"></span>
+        </form>
+
+        <div class="examples">
+          <span class="examples-label">Примеры запросов</span>
+          <div class="example-list">
+            <button type="button" class="example demo" data-demo="dense">Ведущий</button>
+            <button type="button" class="example demo" data-demo="rare">Флорист</button>
+            <button type="button" class="example demo" data-demo="empty">Строгие условия</button>
+            <button type="button" class="example demo" data-demo="absent">Редкая категория</button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="result-area" aria-live="polite">
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="6" stroke="currentColor" stroke-width="1.7"/>
+              <path d="m16 16 4 4M8.5 11h5M11 8.5v5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="step">02</span>
+          <h2>Здесь появятся рекомендации</h2>
+          <p>После поиска вы увидите подходящих подрядчиков, стоимость и конкретные причины попадания в подборку.</p>
+        </div>
+
+        <div id="resultSection" class="results hidden">
+          <div class="results-head">
+            <div>
+              <span class="eyebrow">Результат подбора</span>
+              <h2>Подходящие варианты</h2>
+            </div>
+          </div>
+
+          <div id="statusBox" class="status"></div>
+          <div id="cards" class="cards"></div>
+
+          <section id="planBSection" class="plan-b hidden" aria-labelledby="planBTitle">
+            <div class="plan-b-head">
+              <div>
+                <span class="plan-b-kicker">План Б</span>
+                <h3 id="planBTitle">Что можно изменить минимально</h3>
+                <p>Сервис проверил соседние варианты и нашёл изменения, которые реально расширяют выбор.</p>
+              </div>
+              <div class="plan-b-mark" aria-hidden="true">↗</div>
+            </div>
+            <div id="planBOptions" class="plan-b-options"></div>
+          </section>
+
+          <details id="diagnosticsWrap" class="details-panel">
+            <summary>Детали подбора</summary>
+            <pre id="diagnostics"></pre>
+          </details>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
