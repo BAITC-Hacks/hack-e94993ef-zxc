@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Contractor — умный подбор подрядчиков</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <h1>Smart Contractor</h1>
+        <p>До 3 подходящих подрядчиков с конкретным объяснением, почему каждый попал в выдачу.</p>
+      </div>
+      <div class="badge" id="profilesBadge">Загрузка данных…</div>
+    </section>
+
+    <section class="panel form-panel">
+      <div class="section-title">
+        <div>
+          <h2>Параметры мероприятия</h2>
+          <p>Обязательные условия сначала фильтруют каталог, затем подходящие кандидаты ранжируются детерминированно.</p>
+        </div>
+      </div>
+
+      <form id="recommendForm" class="form-grid">
+        <label>Город<select id="city" required></select></label>
+        <label>Дата<input id="eventDate" type="date" required /></label>
+        <label>Тип мероприятия<select id="eventFormat" required></select></label>
+        <label>Категория<select id="category" required></select></label>
+        <label>Бюджет, ₸<input id="budget" type="number" min="1" step="10000" value="1000000" required /></label>
+        <label>Длительность, ч <span class="muted">(необязательно)</span><input id="duration" type="number" min="1" max="24" step="0.5" placeholder="Например, 6" /></label>
+        <label>Язык <span class="muted">(необязательно)</span><select id="language"><option value="">Не важно</option></select></label>
+        <label class="wide">Дополнительные пожелания <span class="muted">(необязательно)</span><textarea id="preferences" rows="3" maxlength="500" placeholder="Например: интеллигентный юмор, современная подача, импровизация"></textarea></label>
+        <div class="wide actions">
+          <button type="submit" class="primary">Подобрать подрядчиков</button>
+          <span id="requestState" class="muted"></span>
+        </div>
+      </form>
+
+      <div class="demo-row">
+        <span class="muted">Быстрые демо:</span>
+        <button type="button" class="ghost demo" data-demo="dense">Плотная категория</button>
+        <button type="button" class="ghost demo" data-demo="rare">Редкая категория</button>
+        <button type="button" class="ghost demo" data-demo="empty">Без результата</button>
+        <button type="button" class="ghost demo" data-demo="absent">Нет категории в городе</button>
+      </div>
+    </section>
+
+    <section id="resultSection" class="results hidden">
+      <div id="statusBox" class="status"></div>
+      <div id="cards" class="cards"></div>
+      <details id="diagnosticsWrap" class="panel diagnostics">
+        <summary>Диагностика фильтрации</summary>
+        <pre id="diagnostics"></pre>
+      </details>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
