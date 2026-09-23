@@ -8,7 +8,7 @@ from .models import RecommendationRequest, RecommendationResponse
 from .recommender import ContractorRecommender
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_PATH = BASE_DIR / "data" / "contractors.csv"
+DATA_PATH = BASE_DIR / "data" / "hackathondatasetanonymized.csv"
 STATIC_DIR = BASE_DIR / "app" / "static"
 
 app = FastAPI(
