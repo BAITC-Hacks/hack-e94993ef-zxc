@@ -327,10 +327,6 @@ http://127.0.0.1:8000
 
 ## Разделение работы
 
-Подробное распределение файлов между двумя участниками находится в [`TEAM_TASKS.md`](TEAM_TASKS.md).
-
-Коротко:
-
 - участник 1: `backend/data_loader.py`, `backend/models.py`, `backend/recommender.py`, данные и тесты алгоритма;
 - участник 2: `backend/main.py`, вся папка `frontend/`, API-тесты, запуск и документация.
 
